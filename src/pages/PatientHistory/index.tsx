@@ -19,7 +19,8 @@ const DATA = [
 
 function Item({ title }) {
   return (
-    <View style={styles.item}>
+    <View style={
+      styles.item}>
       <Text style={styles.title}>{title}</Text>
     </View>
   );
@@ -28,6 +29,20 @@ function Item({ title }) {
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
+      <Text style={styles.head}>
+        Patient's name History
+      </Text>
+      <Text style={styles.listTitle}>
+        Pressure
+      </Text>
+      <FlatList
+        data={DATA}
+        renderItem={({ item }) => <Item title={item.title} />}
+        keyExtractor={item => item.id}
+      />
+      <Text style={styles.listTitle}>
+        Temperature
+      </Text>
       <FlatList
         data={DATA}
         renderItem={({ item }) => <Item title={item.title} />}
@@ -42,13 +57,26 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: Constants.statusBarHeight,
   },
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
+  head: {
+    padding: 8,
+    marginVertical: 2,
     marginHorizontal: 16,
+    fontSize: 28,
+  },
+  listTitle: {
+    padding: 8,
+    marginVertical: 2,
+    marginHorizontal: 16,
+    fontSize: 24,
+  },
+  item: {
+    padding: 8,
+    marginVertical: 2,
+    marginHorizontal: 16,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
   },
   title: {
-    fontSize: 32,
+    fontSize: 20,
   },
 });
