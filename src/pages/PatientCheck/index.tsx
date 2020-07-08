@@ -4,34 +4,56 @@ import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 const PatientCheck = () => {
-  let intervalId = setInterval(() => {
-    this.GenerateRandomNumber();
-    if (this.state.stopTimer) {
+  setInterval(() => {
+    GenerateRandomNumber();
+    if (stopTimer) {
       clearInterval(intervalId);
     }
   }, 5000);
 
-  this.state = {
-    Temperatura: '----',
-    Pressao: '----',
-    Resultado: 'estado do paciente',
-    stopTimer: false,
-  };
+  //const DATA = [
+    //{
+      //Pressao: ' ',
+      //Temperatura: ' ',
+    //},
+  //];
+
+  let Temperatura = "----";
+  let Pressao = "----";
+  const dicttempNormal = {min: 35.8, max: 37.8};
+  const dictpressNormal = {min: 90.6, max: 120.8};
+  const ResultadoPressao = "Estado do paciente";
+  const ResultadoTemperatura = "Estado do paciente";
+  const stopTimer = false;
 
   function GenerateRandomNumber() {
-    let temp = this.getRandom(33.0, 43.0);
-    let press = this.getRandom(70.0, 170.0);
 
-    this.setState({
-      Temperatura: temp.toFixed(1),
-      Pressao: press.toFixed(2).replace('.', '/'),
-    });
+    let tempMin = dicttempNormal["min"] -= 2e-4
+    let tempMax = dicttempNormal["max"] += 2e-4
 
-    this.verificarPressao(temp, press);
+    let pressMin = dictpressNormal["min"] -= 2e-2
+    let pressMax = dictpressNormal["max"] += 2e-2
+
+    let temp = getRandom(tempMin,tempMax)
+    let press = getRandom(pressMin,pressMax)
+
+    
+    Temperatura = temp.toFixed(1)
+    Pressao = press.toFixed(2).replace('.','/')
+
+    console.log(Temperatura);
+    updateView();
+    verificarPressao(temp, press);
+
   }
+
   function getRandom(min, max) {
-    return Math.random() * (max - min) + min;
+
+    // = (Math.floor(Math.random()*100) + ran_val)
+    return ((Math.random() * (max - min)) + min);
+
   }
+
 
   function createAlert() {
     Alert.alert(
@@ -50,61 +72,62 @@ const PatientCheck = () => {
   }
   function verificarPressao(temperatura, pressao) {
     if (temperatura < 35.8 || temperatura > 37.8) {
-      this.setState({
-        Resultado:
-          'O Paciente está precisando de Ajuda, Temperatura fora do padrão!',
-          stopTimer: true,
-      });
-      this.createAlert();
+      
+      Resultado =
+        'O Paciente está precisando de Ajuda, Temperatura fora do padrão!'
+      stopTimer = true
+      
+      createAlert();
     } else if (pressao < 90.6 || pressao > 120.8) {
-      this.setState({
-        Resultado:
-          'O Paciente está precisando de Ajuda, Pressão fora do padrão',
-        stopTimer: true,
-      });
-      this.createAlert();
+      
+      Resultado =
+        'O Paciente está precisando de Ajuda, Pressão fora do padrão'
+      stopTimer = true
+      
+      createAlert();
     } else {
-      this.setState({
-        Resultado: 'O Paciente está bem',
-      });
+      
+      Resultado = 'O Paciente está bem'
+
     }
   }
 
-  return (
+  function updateView(){
     <View style={styles.main}>
       <SafeAreaView>
-        <View style={styles.row}>
-          <Text style={styles.text}>
-            Temperatura: {this.state.Temperatura}°C
-          </Text>
-        </View>
+          <View style={styles.row}>
+            <Text style={styles.text}>Temperatura:   {Temperatura}°C</Text>
+          </View>
 
-        <View style={styles.seperator} />
+          <View style={styles.seperator}/>
 
-        <View style={styles.row}>
-          <Text style={styles.text}>Pressão: {this.state.Pressao} mmHg</Text>
-        </View>
+          <View style={styles.row}>
+            <Text style={styles.text}>Pressão:   {Pressao} mmHg</Text>
+          </View>
 
-        <View style={styles.seperator} />
+          <View style={styles.seperator}/>
 
-        <View style={styles.MainContainer}>
-          <Text style={styles.resultado}>{this.state.Resultado}</Text>
-          {/* <Button title="Começar o Monitoramento" onPress={} /> */}
-        </View>
-      </SafeAreaView>
+          <View style={styles.MainContainer} >
+            <Text style={styles.resultado}>{ResultadoTemperatura}</Text>
+            <Text style={styles.resultado}>{ResultadoPressao}</Text>
+          </View>
+        </SafeAreaView>
     </View>
-  );
+  }
+
+  return null
 }
 
 
 const styles = StyleSheet.create({
-  row: {
-    paddingHorizontal: 30,
-    paddingVertical: 16,
+
+  row:{
+    paddingHorizontal:30,
+    paddingVertical: 16
   },
   text: {
     fontSize: 18,
-    color: '#343434',
+    color: "#343434"
   },
   MainContainer: {
     // flex: 1,
@@ -112,15 +135,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  seperator: {
-    backgroundColor: '#E2E2E2',
+  seperator:{
+    backgroundColor:'#E2E2E2',
     height: StyleSheet.hairlineWidth,
-    marginLeft: 20,
+    marginLeft: 20
   },
-  resultado: {
-    fontSize: 14,
-    color: '#343434',
-  },
+  resultado:{
+    fontSize: 30,
+    color: "#343434",
+    paddingVertical: 16
+
+  }
+ 
 });
 
-export default Login;
+export default PatientCheck;
+
+
+///////////////////////////////////////////
