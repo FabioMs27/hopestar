@@ -23,12 +23,12 @@ const Login = () => {
       <View style={styles.footer}>
         <TextInput 
           style={styles.input}
-          placeholder="username"
+          placeholder="admin"
         />
 
         <TextInput 
           style={styles.input}
-          placeholder="****"
+          placeholder="admin"
         />
 
         <RectButton style={styles.buttonLogin} onPress={handleNavigateToHome}>
