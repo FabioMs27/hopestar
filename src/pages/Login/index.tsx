@@ -1,18 +1,40 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Image, Text, TextInput, Alert } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 
 const Login = () => {
   const navigation = useNavigation();
+  var username: string;
+  var password: string;
 
   function handleNavigateToHome() {
-    navigation.navigate('PatientCheck');
+    console.log(username, password)
+    if (username == "Admin" && password == "Admin123") {
+      navigation.navigate('PatientCheck');
+    } else {
+      Alert.alert(
+        "Erro no Login",
+        "Usuário ou senha incorretos",
+        [
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      );
+    }
   }
 
   function handleNavigateToRegister() {
     navigation.navigate('Register');
+  }
+
+  function onChangeUsername(text: string) {
+    username = text;
+  }
+
+  function onChangePassword(text: string) {
+    password = text;
   }
 
   return (
@@ -23,12 +45,14 @@ const Login = () => {
       <View style={styles.footer}>
         <TextInput 
           style={styles.input}
-          placeholder="admin"
+          placeholder="Admin"
+          onChangeText={text => onChangeUsername(text)}
         />
 
         <TextInput 
           style={styles.input}
-          placeholder="admin"
+          placeholder="Admin123"
+          onChangeText={text => onChangePassword(text)}
         />
 
         <RectButton style={styles.buttonLogin} onPress={handleNavigateToHome}>
@@ -38,6 +62,8 @@ const Login = () => {
         <RectButton style={styles.buttonRegister} onPress={handleNavigateToRegister}>
           <Text style={styles.buttonText}>Registrar</Text>
         </RectButton>
+
+        
       </View>
     </View>
   );
