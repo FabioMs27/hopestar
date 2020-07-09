@@ -24,7 +24,7 @@
           Pressao : "----",
           ResultadoPressao: "Estado do paciente",
           ResultadoTemperatura: "Estado do paciente",
-         
+          stopTimer: false
 
       }
     }
@@ -81,48 +81,65 @@
 
     }
 
-    createAlert() {
-      if (this.timer) clearInterval(this.timer)
+    async verificarPressao(temperatura, pressao){
+
+      if (temperatura < 35.8 || temperatura > 37.8 ) {
+        console.log("entrou no primeiro")
+        this.setState({
+          ResultadoTemperatura : "Temperatura fora do padrão!",
+          stopTimer: true,      
+
+        })
+        // alert("Temperatura fora do Padrão")
+        this.createAlert(temperatura, pressao);
+
+      }else{
+        this.setState({
+          ResultadoTemperatura : "Temperatura normal"
+        })
+        // alert("OI")
+
+      }
+      
+      if (pressao < 90.60 || pressao > 120.8){
+        console.log("entrou no segundo")
+        this.setState({
+          ResultadoPressao : "Pressão fora do padrão",   
+          stopTimer: true,      
+        })
+        // alert("Pressão fora do Padrão")
+        this.createAlert(temperatura, pressao);
+      }else{
+        this.setState({
+          ResultadoPressao : "Pressão normal"
+        })
+      }
+
+
+    }
+
+    createAlert(temp, press) {
       Alert.alert(
         'Alert Title',
         'My Alert Msg',
         [
           {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
+            text: 'OK',
+            onPress: () => this.setState({stopTimer: false}),
             style: 'cancel',
           },
-          { text: 'OK', onPress: () => console.log('dang') },
+          { text: 'History', onPress: () => console.log('dang') },
         ],
         { cancelable: false }
       );
     }
 
-    verificarPressao(temperatura, pressao) {
-      if (temperatura < 35.8 || temperatura > 37.8) {
-        this.setState({
-          Resultado:
-            'O Paciente está precisando de Ajuda, Temperatura fora do padrão!',
-            stopTimer: true,
-        });
-        this.createAlert();
-      } else if (pressao < 90.6 || pressao > 120.8) {
-        this.setState({
-          Resultado:
-            'O Paciente está precisando de Ajuda, Pressão fora do padrão',
-          stopTimer: true,
-        });
-        this.createAlert();
-      } else {
-        this.setState({
-          Resultado: 'O Paciente está bem',
-        });
-      }
-    }
-
     componentDidMount() {
-      this.timer = setInterval(() => {
-        this.GenerateRandomNumber()
+      setInterval(() => {
+        console.log(this.state.stopTimer)
+        if(!this.state.stopTimer){
+          this.GenerateRandomNumber()
+        }
       }, 2000);
     }
 
