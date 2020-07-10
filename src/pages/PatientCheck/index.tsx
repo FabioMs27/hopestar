@@ -9,7 +9,7 @@
   
   
   import React, { Component } from 'react';
-
+  import { AsyncStorage } from 'react-native';
   import { StyleSheet, View, Button, Text, SafeAreaView, Alert} from 'react-native';
   import {withNavigation} from 'react-navigation';
 
