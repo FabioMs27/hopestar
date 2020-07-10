@@ -65,7 +65,7 @@
           stopTimer: true,      
 
         })
-        this.createAlert(temperatura, pressao);
+        this.createAlert(true);
 
       }else{
         this.setState({
@@ -79,7 +79,7 @@
           ResultadoPressao : "Pressão fora do padrão",   
           stopTimer: true,      
         })
-        this.createAlert(temperatura, pressao);
+        this.createAlert(false);
       }else{
         this.setState({
           ResultadoPressao : "Pressão normal"
@@ -89,10 +89,16 @@
 
     }
 
-    createAlert(temp, press) {
+    createAlert(isTemp) {
+      let msg = ""
+      if(isTemp){
+        msg = "temperature of " + this.state.Temperatura + "°C"
+      }else{
+        msg = "pressure of " + this.state.Pressao
+      }
       Alert.alert(
-        'Alert Title',
-        'My Alert Msg',
+        'Alert',
+        'Patient had a ' + msg,
         [
           {
             text: 'OK',
