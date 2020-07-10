@@ -33,38 +33,14 @@
     GenerateRandomNumber() {
 
       console.log()
-       let tempMin = this.state.dicttempNormal["min"] -= 2e-4
-       let tempMax = this.state.dicttempNormal["max"] += 2e-4
+       let tempMin = this.state.dicttempNormal["min"] -= 2e-2
+       let tempMax = this.state.dicttempNormal["max"] += 2e-2
 
        let pressMin = this.state.dictpressNormal["min"] -= 2e-2
        let pressMax = this.state.dictpressNormal["max"] += 2e-2
 
-       console.log(tempMin)
-       console.log(tempMax)
-       console.log(pressMin)
-       console.log(pressMax)
-
-
-
-      // this.setState({
-      //   tempNormal[min]
-      //   // tempNormal["min"] : TempNormal["min"] +1,
-      //   Pressao : press.toFixed(2).replace('.','/')
-      // })
-      // console.log(tempNormal["min"])
       let temp = this.getRandom(tempMin,tempMax)
       let press = this.getRandom(pressMin,pressMax)
-
-      // tempNormal["min"] = 33.0
-      // tempNormal["max"] = 44.0
-      // console.log(tempNormal["min"])
-
-      // let temp = this.getRandom(35.8,37.8)
-      // let press = this.getRandom(90.60, 120.8)
-      // let temp = this.getRandom(33.0,43.0)
-      // let press = this.getRandom(70.00,170.00)
-
-
 
       this.setState({
         Temperatura : temp.toFixed(1),
@@ -76,7 +52,6 @@
     }
     getRandom(min, max) {
       
-      // = (Math.floor(Math.random()*100) + ran_val)
       return ((Math.random() * (max - min)) + min);
 
     }
@@ -90,15 +65,12 @@
           stopTimer: true,      
 
         })
-        // alert("Temperatura fora do Padrão")
         this.createAlert(temperatura, pressao);
 
       }else{
         this.setState({
           ResultadoTemperatura : "Temperatura normal"
         })
-        // alert("OI")
-
       }
       
       if (pressao < 90.60 || pressao > 120.8){
@@ -107,7 +79,6 @@
           ResultadoPressao : "Pressão fora do padrão",   
           stopTimer: true,      
         })
-        // alert("Pressão fora do Padrão")
         this.createAlert(temperatura, pressao);
       }else{
         this.setState({
@@ -140,11 +111,10 @@
         if(!this.state.stopTimer){
           this.GenerateRandomNumber()
         }
-      }, 2000);
+      }, 1500);
     }
 
     render() {
-      // this.GenerateRandomNumber()
 
       return (
      
@@ -183,7 +153,6 @@
       color: "#343434"
     },
     MainContainer: {
-      // flex: 1,
       paddingVertical: 100,
       justifyContent: 'center',
       alignItems: 'center',
