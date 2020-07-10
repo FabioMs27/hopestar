@@ -26,7 +26,7 @@ function Item({ title }) {
   );
 }
 
-export default function App() {
+export default function PatientHistory() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.head}>
@@ -80,3 +80,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+export default PatientHistory;

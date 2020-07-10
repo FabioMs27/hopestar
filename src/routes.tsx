@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import TabNavHome from './';
 import PatientCheck from './pages/PatientCheck'
+import PatientHistory from './pages/PatientHistory'
 
 const AppStack = createStackNavigator();
 
@@ -24,6 +25,7 @@ const Routes = () => {
         <AppStack.Screen name="Register" component={Register} />
         <AppStack.Screen name="TabNavHome" component={TabNavHome} />
         <AppStack.Screen name="PatientCheck" component={PatientCheck} />
+        <AppStack.Screen name="PatientHistory" component={PatientHistory} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

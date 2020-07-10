@@ -11,6 +11,7 @@
   import React, { Component } from 'react';
 
   import { StyleSheet, View, Button, Text, SafeAreaView, Alert} from 'react-native';
+  import {withNavigation} from 'react-navigation';
 
   class PatientCheck extends React.Component {
 
@@ -90,6 +91,7 @@
     }
 
     createAlert(isTemp) {
+
       let msg = ""
       if(isTemp){
         msg = "temperature of " + this.state.Temperatura + "°C"
@@ -105,7 +107,7 @@
             onPress: () => this.setState({stopTimer: false}),
             style: 'cancel',
           },
-          { text: 'History', onPress: () => console.log('dang') },
+          { text: 'History', onPress: () => this.props.navigation.navigate('PatientHistory') },
         ],
         { cancelable: false }
       );
