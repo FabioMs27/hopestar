@@ -1,22 +1,21 @@
-//Normal = 
+//Normal =
   //Sistolica = 9 - 12
   //Diastolica = menor 8
-  
-  
+
+
   //menor q 12 por 8 ate 9 por 6
 
   //Temperatura = 35 -  37,8º
-  
-  
+
+
   import React, { Component } from 'react';
   import { AsyncStorage } from 'react-native';
   import { StyleSheet, View, Button, Text, SafeAreaView, Alert} from 'react-native';
-  import {withNavigation} from 'react-navigation';
 
   class PatientCheck extends React.Component {
 
     constructor(){
- 
+
       super();
       this.state={
           dicttempNormal: {min: 35.8, max: 37.8},
@@ -25,7 +24,7 @@
           Pressao : "----",
           ResultadoPressao: "Estado do paciente",
           ResultadoTemperatura: "Estado do paciente",
-          stopTimer: false
+
 
       }
     }
@@ -34,14 +33,57 @@
     GenerateRandomNumber() {
 
       console.log()
-       let tempMin = this.state.dicttempNormal["min"] -= 2e-2
-       let tempMax = this.state.dicttempNormal["max"] += 2e-2
+       let tempMin = this.state.dicttempNormal["min"] -= 2e-4
+       let tempMax = this.state.dicttempNormal["max"] += 2e-4
 
        let pressMin = this.state.dictpressNormal["min"] -= 2e-2
        let pressMax = this.state.dictpressNormal["max"] += 2e-2
 
+       console.log(tempMin)
+       console.log(tempMax)
+       console.log(pressMin)
+       console.log(pressMax)
+
+
+
+      // this.setState({
+      //   tempNormal[min]
+      //   // tempNormal["min"] : TempNormal["min"] +1,
+      //   Pressao : press.toFixed(2).replace('.','/')
+      // })
+      // console.log(tempNormal["min"])
       let temp = this.getRandom(tempMin,tempMax)
       let press = this.getRandom(pressMin,pressMax)
+
+      var temperaturas = [];
+      const listItems = temperaturas.map((temperaturas) =>
+      <li>{number}</li>
+      );
+
+      storeTemp = async (temp) => {
+        try {
+          await AsyncStorage.setItem('temperatura', temp);
+        } catch (e) {
+          console.log(e.message);
+        }
+      }
+      storePress = async (press) => {
+        try {
+          await AsyncStorage.setItem('temperatura', press);
+        } catch (e) {
+          console.log(e.message);
+        }
+      }
+      // tempNormal["min"] = 33.0
+      // tempNormal["max"] = 44.0
+      // console.log(tempNormal["min"])
+
+      // let temp = this.getRandom(35.8,37.8)
+      // let press = this.getRandom(90.60, 120.8)
+      // let temp = this.getRandom(33.0,43.0)
+      // let press = this.getRandom(70.00,170.00)
+
+
 
       this.setState({
         Temperatura : temp.toFixed(1),
@@ -52,7 +94,8 @@
 
     }
     getRandom(min, max) {
-      
+
+      // = (Math.floor(Math.random()*100) + ran_val)
       return ((Math.random() * (max - min)) + min);
 
     }
@@ -62,25 +105,25 @@
       if (temperatura < 35.8 || temperatura > 37.8 ) {
         console.log("entrou no primeiro")
         this.setState({
-          ResultadoTemperatura : "Temperatura fora do padrão!",
-          stopTimer: true,      
-
+          ResultadoTemperatura : "Temperatura fora do padrão!"
         })
-        this.createAlert(true);
+        // alert("Temperatura fora do Padrão")
 
       }else{
         this.setState({
           ResultadoTemperatura : "Temperatura normal"
         })
+        // alert("OI")
+
       }
-      
+
       if (pressao < 90.60 || pressao > 120.8){
         console.log("entrou no segundo")
         this.setState({
-          ResultadoPressao : "Pressão fora do padrão",   
-          stopTimer: true,      
+          ResultadoPressao : "Pressão fora do padrão",
         })
-        this.createAlert(false);
+        // alert("Pressão fora do Padrão")
+
       }else{
         this.setState({
           ResultadoPressao : "Pressão normal"
@@ -90,42 +133,18 @@
 
     }
 
-    createAlert(isTemp) {
-
-      let msg = ""
-      if(isTemp){
-        msg = "temperature of " + this.state.Temperatura + "°C"
-      }else{
-        msg = "pressure of " + this.state.Pressao
-      }
-      Alert.alert(
-        'Alert',
-        'Patient had a ' + msg,
-        [
-          {
-            text: 'OK',
-            onPress: () => this.setState({stopTimer: false}),
-            style: 'cancel',
-          },
-          { text: 'History', onPress: () => this.props.navigation.navigate('PatientHistory') },
-        ],
-        { cancelable: false }
-      );
-    }
-
     componentDidMount() {
       setInterval(() => {
-        console.log(this.state.stopTimer)
-        if(!this.state.stopTimer){
-          this.GenerateRandomNumber()
-        }
-      }, 1500);
+        this.GenerateRandomNumber()
+      }, 2000);
+
     }
 
     render() {
+      // this.GenerateRandomNumber()
 
       return (
-     
+
         <SafeAreaView>
 
           <View style={styles.row}>
@@ -142,14 +161,14 @@
 
           <View style={styles.MainContainer} >
             <Text style={styles.resultado}>{this.state.ResultadoTemperatura}</Text>
-            <Text style={styles.resultado}>{this.state.ResultadoPressao}</Text>    
+            <Text style={styles.resultado}>{this.state.ResultadoPressao}</Text>
           </View>
         </SafeAreaView>
-        
+
       );
     }
   }
-   
+
   const styles = StyleSheet.create({
 
     row:{
@@ -161,6 +180,7 @@
       color: "#343434"
     },
     MainContainer: {
+      // flex: 1,
       paddingVertical: 100,
       justifyContent: 'center',
       alignItems: 'center',
@@ -176,6 +196,6 @@
       paddingVertical: 16
 
     }
-   
+
   });
 export default PatientCheck;
