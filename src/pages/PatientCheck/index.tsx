@@ -56,24 +56,11 @@
       let press = this.getRandom(pressMin,pressMax)
 
       var temperaturas = [];
-      const listItems = temperaturas.map((temperaturas) =>
-      <li>{number}</li>
-      );
+      temperaturas.append(temp);
+      var pressoes = [];
+      pressoes.append(press);
 
-      storeTemp = async (temp) => {
-        try {
-          await AsyncStorage.setItem('temperatura', temp);
-        } catch (e) {
-          console.log(e.message);
-        }
-      }
-      storePress = async (press) => {
-        try {
-          await AsyncStorage.setItem('temperatura', press);
-        } catch (e) {
-          console.log(e.message);
-        }
-      }
+
       // tempNormal["min"] = 33.0
       // tempNormal["max"] = 44.0
       // console.log(tempNormal["min"])
@@ -108,7 +95,20 @@
           ResultadoTemperatura : "Temperatura fora do padrão!"
         })
         // alert("Temperatura fora do Padrão")
-
+        storeTemp = async (temp) => {
+          try {
+            await AsyncStorage.setItem('temperatura', temperaturas);
+          } catch (e) {
+            console.log(e.message);
+          }
+        }
+        storePress = async (press) => {
+          try {
+            await AsyncStorage.setItem('temperatura', pressoes);
+          } catch (e) {
+            console.log(e.message);
+          }
+        }
       }else{
         this.setState({
           ResultadoTemperatura : "Temperatura normal"
@@ -123,7 +123,20 @@
           ResultadoPressao : "Pressão fora do padrão",
         })
         // alert("Pressão fora do Padrão")
-
+        storeTemp = async (temp) => {
+          try {
+            await AsyncStorage.setItem('temperatura', temperaturas);
+          } catch (e) {
+            console.log(e.message);
+          }
+        }
+        storePress = async (press) => {
+          try {
+            await AsyncStorage.setItem('temperatura', pressoes);
+          } catch (e) {
+            console.log(e.message);
+          }
+        }
       }else{
         this.setState({
           ResultadoPressao : "Pressão normal"
