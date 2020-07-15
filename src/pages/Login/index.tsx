@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Image, Text, TextInput, Alert } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const Login = () => {
@@ -11,8 +12,9 @@ const Login = () => {
 
   function handleNavigateToHome() {
     console.log(username, password)
-    if (username == "Admin" && password == "Admin123") {
-      navigation.navigate('PatientCheck');
+    if (username == "admin" && password == "123") {
+      // navigation.navigate('PatientCheck');
+      navigation.navigate('TabNavHome');
     } else {
       Alert.alert(
         "Erro no Login",
@@ -38,20 +40,25 @@ const Login = () => {
   }
 
   return (
-    <View style={styles.main}>
-      <Image source={require('../../assets/logo.png')} />
-      <Text style={styles.title}>HOPESTAR</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.top}>
+        <Image source={require('../../assets/logo.png')} />
+        <Text style={styles.title}>HOPESTAR</Text>
+      </View>
+      
 
       <View style={styles.footer}>
         <TextInput 
           style={styles.input}
-          placeholder="Admin"
+          placeholder="admin"
           onChangeText={text => onChangeUsername(text)}
         />
 
         <TextInput 
           style={styles.input}
-          placeholder="Admin123"
+          placeholder="123"
+          autoCorrect={false}
+          secureTextEntry={true}
           onChangeText={text => onChangePassword(text)}
         />
 
@@ -65,30 +72,31 @@ const Login = () => {
 
         
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  main: {
+  container: {
     flex: 1,
-    padding: 50,
-    alignItems: 'center'
   },
-
-  footer: {
-    flex: 1,
-    marginTop: 240
+  top: {
+    height: '45%',
+    alignItems: 'center',
   },
-
   title: {
     color: '#000',
     fontSize: 32,
-    fontWeight: "bold",
-    maxWidth: 400,
+    fontWeight: "500",
     marginTop: 20,
   },
-
+  footer: {
+    flexDirection: 'column',
+    height: '40%',
+    marginTop: 100,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   input: {
     height: 60,
     width: 300,
@@ -98,33 +106,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     fontSize: 16
   },
-
   buttonLogin: {
     backgroundColor: '#1E90FF',
     height: 60,
-    flexDirection: 'row',
-    borderRadius: 10,
-    overflow: 'hidden',
-    alignItems: 'center'
-  },
-
-  buttonRegister: {
-    backgroundColor: '#32CD32',
-    height: 60,
-    flexDirection: 'row',
+    width: 300,
     borderRadius: 10,
     overflow: 'hidden',
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonRegister: {
+    backgroundColor: '#32CD32',
+    height: 60,
+    width: 300,
+    borderRadius: 10,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 30,
   },
-
   buttonText: {
-    flex: 1,
-    justifyContent: 'center',
-    textAlign: 'center',
     color: '#FFF',
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: '700'
   }
 });
 

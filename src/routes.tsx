@@ -21,6 +21,7 @@ const Routes = () => {
           }
         }}
       >
+        {/* <AppStack.Screen name="TabNavHome" component={TabNavHome} /> */}
         <AppStack.Screen name="Login" component={Login} />
         <AppStack.Screen name="Register" component={Register} />
         <AppStack.Screen name="TabNavHome" component={TabNavHome} />
